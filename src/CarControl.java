@@ -94,5 +94,37 @@ public class CarControl {
         System.out.println("Marcha alterada para: " + newMarch + ".");
     }
 
-    
+    public void toTurn(String direction){
+        if(!car.isOn()){
+            System.out.println("O carro está desligado.");
+            return;
+        }
+
+        int speed = car.getSpeed();
+        if(speed < 1 || speed > 40){
+            System.out.println("A velocidade deve estar entre 1km/h e 40km/h para virar.");
+            return;
+        }
+
+        System.out.println("Virando para " + direction + "...");
+    }
+
+    public void checkSpeed(){
+        System.out.println("Velocidade atual: " + car.getSpeed() + "km/h.");
+        System.out.println("Marcha atual " + car.getMarch());
+        System.out.println("Status: " + (car.isOn() ? "Ligado" : "Desligado"));
+    }
+
+    private boolean permittedSpeed(int speed, int march){
+        return switch (march){
+            case 0 -> speed == 0;
+            case 1 -> speed >= 1 && speed <= 20;
+            case 2 -> speed >= 21 && speed <= 40;
+            case 3 -> speed >= 41 && speed <= 60;
+            case 4 -> speed >= 61 && speed <= 80;
+            case 5 -> speed >= 81 && speed <= 100;
+            case 6 -> speed >= 101 && speed <= 120;
+            default -> false;
+        };
+    }
 }
